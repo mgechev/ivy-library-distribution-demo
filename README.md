@@ -1,27 +1,31 @@
-# IvyLib
+# Ivy Library Distribution Demo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.0-rc.0.
+**This project focuses on low-level technical details, which are transparent for application and library developers**. If you're interested in giving a try of the new library distribution mechanism, read the content below and follow the external references. If not, ignore this project and wait until we enable this in a future version. We're expecting significant build time and postinstall improvements 🔥.
 
-## Development server
+## Details
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This workspace shows a sample usage of the **experimental** Angular linker used for library distribution. The only difference from a standard Angular project is in `tsconfig.lib.prod.json`, which now contains an extra flag under `angularCompilerOptions` and sets the `enableIvy` property to `true`:
 
-## Code scaffolding
+```js
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "declarationMap": false
+  },
+  "angularCompilerOptions": {
+    "enableIvy": true,
+    "compilationMode": "partial"
+  }
+}
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Background
 
-## Build
+As part of our migration from View Engine to Ivy we have a couple of major efforts. One of them is to figure out the library distribution strategy. In the previous versions of the Angular compiler we used to resolve the metadata for the Angular libraries in the project using `metadata.json` files and we encouraged. Because of the locality principle in Ivy and build performance concerns, we took a different direction which we listed in [this RFC](https://github.com/angular/angular/issues/38366).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+As part of the new mechanism Angular CLI will now "partially compile" libraries and prepare them for distribution to package registries. Later on, when developers install a library in their project we'll use the Angular linker to transform the partially compiled form to Ivy instructions.
 
-## Running unit tests
+## License
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+MIT
