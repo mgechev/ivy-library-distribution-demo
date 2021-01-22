@@ -2,6 +2,8 @@
 
 **This project focuses on low-level technical details, which are transparent for application and library developers**. If you're interested in giving a try of the new library distribution mechanism, read the content below and follow the external references. If not, ignore this project and wait until we enable this in a future version. We're expecting significant build time and postinstall improvements 🔥.
 
+**Keep in mind that this repository uses experimental APIs which are not yet recommended by the Angular team**. Please continue using the default Angular CLI setup and **do not publish any partially compiled/Ivy code on npm**.
+
 ## Details
 
 This workspace shows a sample usage of the **experimental** Angular linker used for library distribution. The only difference from a standard Angular project is in `tsconfig.lib.prod.json`, which now contains an extra flag under `angularCompilerOptions` and sets the `enableIvy` property to `true`:
